@@ -7,10 +7,10 @@ TS_PROTO_PLUGIN = $(shell which protoc-gen-ts_proto)
 
 # 目标文件夹
 PROTO_DIR = .
-OUTPUT_DIR = ../../begonia/api/v1/api/v1
+OUTPUT_DIR = ../../
 PY_OUTPUT_DIR = ../../common
 # 文件列表
-GO_PROTO_FILES = $(wildcard $(PROTO_DIR)/*.proto)
+GO_PROTO_FILES = $(wildcard $(PROTO_DIR)/begonia/api/v1/*.proto)
 PY_PROTO_FILES = $(wildcard $(PROTO_DIR)/*.proto)
 TS_PROTO_FILES = $(wildcard $(PROTO_DIR)/*.proto)
 COMMON_ARGS = options.proto common.proto
@@ -36,7 +36,7 @@ generate: make_dir go python ts
 # 生成 Go 代码
 go: $(GO_PROTO_FILES) | make_dir
 	$(PROTOC) -I=$(PROTO_DIR) $(GO_ARGS) $?
-	protoc-go-inject-tag -input="$(OUTPUT_DIR)/*.pb.go"
+	protoc-go-inject-tag -input="$(OUTPUT_DIR)begonia/api/v1/*.pb.go"
 
 # 生成 Python 代码
 python: $(PY_PROTO_FILES) | make_dir
