@@ -9,6 +9,8 @@ TS_PROTO_PLUGIN = $(shell which protoc-gen-ts_proto)
 PROTO_DIR = .
 OUTPUT_DIR = ../../
 PY_OUTPUT_DIR = ../../../
+TS_OUTPUT_DIR = ../../
+
 # 文件列表
 GO_PROTO_FILES = $(wildcard $(PROTO_DIR)/begonia/api/v1/*.proto)
 PY_PROTO_FILES = $(wildcard $(PROTO_DIR)/begonia/api/v1/*.proto)
@@ -23,7 +25,7 @@ PY_ARGS = -m grpc_tools.protoc -I=$(PROTO_DIR) --python_out=$(OUTPUT_DIR) \
 TS_ARGS = --plugin="protoc-gen-ts=$(TS_PROTO_PLUGIN)" \
           --ts_proto_opt=esModuleInterop=true --ts_proto_opt=paths=source_relative \
           --ts_proto_opt=snakeToCamel=false --ts_proto_opt=oneof=unions \
-          --ts_proto_out=$(OUTPUT_DIR)
+          --ts_proto_out=$(TS_OUTPUT_DIR)
 
 
 make_dir:
@@ -47,6 +49,6 @@ python: $(PY_PROTO_FILES) | make_dir
 
 # 生成 TypeScript 代码
 ts: $(TS_PROTO_FILES) | make_dir
-	$(PROTOC) -I=$(PROTO_DIR) $(TS_ARGS) $?
+	$(PROTOC) -I=$(PROTO_DIR) $(TS_ARGS) ./google/protobuf/*.proto ./google/api/*.proto $?
 
 
