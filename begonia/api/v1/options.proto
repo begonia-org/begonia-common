@@ -7,9 +7,6 @@ import "google/protobuf/descriptor.proto";
     optional bool auth_reqiured = 50033;
   }
 
-  extend google.protobuf.ServiceOptions {
-    optional bool method_auth_reqiured = 50034;
-  }
 
   extend google.protobuf.FieldOptions {
     optional bool un_updatable = 50039;
@@ -30,4 +27,6 @@ extend google.protobuf.ServiceOptions {
 }
 extend google.protobuf.MethodOptions {
   optional bool dont_use_http_response = 50041;
+  optional bool dont_auth_reqiured = 50034;
+
 }
